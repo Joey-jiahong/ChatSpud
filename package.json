@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@ai-sdk/openai": "^3.0.63",
+    "@tailwindcss/postcss": "^4.3.0",
     "ai": "^6.0.176",
     "react": "^19.2.5",
     "react-dom": "^19.2.5",
