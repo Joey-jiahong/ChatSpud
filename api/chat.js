@@ -87,8 +87,20 @@ export default async function handler(req, res) {
       messages: finalMessages,
     })
 
-    result.pipeTextStreamToResponse(res)
+    res.writeHead(200, {
+      'Content-Type': 'text/plain; charset=utf-8',
+      'Transfer-Encoding': 'chunked',
+      'Connection': 'keep-alive',
+    })
+
+    const stream = result.textStream
+    for await (const chunk of stream) {
+      res.write(chunk)
+    }
+
+    res.end()
   } catch (error) {
+    console.error('API Error:', error)
     return res.status(500).json({ error: error.message || 'Internal server error' })
   }
 }
